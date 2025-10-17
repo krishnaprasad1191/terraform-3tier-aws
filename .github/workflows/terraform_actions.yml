@@ -1,2 +1,26 @@
-name: Deploying infra using AWS+TF and automating by using git actions
+name: Github actions for AWS and TF
 
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "checkout code"
+        uses: actions/checkout@v4
+
+       # Setup TF 
+      - name: "Setup Terraform"
+        uses: hashicorp/setup-terrafrom@v3
+        with:
+          terraform_version: 1.13.1
+      
+      # Authenticate to Cloud
+      - name: "Configure to AWS"
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws-region: ${{secrets.AWS_REGION}}
