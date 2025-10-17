@@ -13,7 +13,7 @@ jobs:
 
        # Setup TF 
       - name: "Setup Terraform"
-        uses: hashicorp/setup-terrafrom@v3
+        uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.13.1
       
