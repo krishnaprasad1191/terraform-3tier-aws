@@ -28,9 +28,12 @@ jobs:
       # Terraform actions
       - name : "Terraform Initializaton"
         run: terraform init
+
       - name: "Terraform validate"
         run:  terraform validate
+
       - name: "Planning the infra"
         run: terraform plan
+
       - name: "Terraform apply"
         run:  terraform apply --auto-approve
