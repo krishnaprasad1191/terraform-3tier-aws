@@ -3,7 +3,9 @@ name: Github actions for AWS and TF
 on:
   push:
     branches: [ main ]
-
+  pull_request:
+    branches: [ main ]
+    
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,9 +30,12 @@ jobs:
       # Terraform actions
       - name : "Terraform Initializaton"
         run: terraform init
+
       - name: "Terraform validate"
         run:  terraform validate
+
       - name: "Planning the infra"
         run: terraform plan
+
       - name: "Terraform apply"
         run:  terraform apply --auto-approve

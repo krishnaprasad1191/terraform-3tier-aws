@@ -19,6 +19,22 @@ variable "Pubsub01_cidr" {
   type = string
   default = "10.0.1.0/24"
 }
+
+variable "Pubsub02_cidr" {
+  type = string
+  default = "10.0.2.0/24"
+}
+
+variable "Pvtsub01_cidr" {
+  type = string
+  default = "10.0.6.0/24"
+}
+
+variable "Pvtsub02_cidr" {
+  type = string
+  default = "10.0.7.0/24"
+}
+
 variable "availability_zones" {
   description = "Map of availability zones"
   type        = map(string)
