@@ -5,13 +5,6 @@ resource "aws_vpc" "main" {
   tags = { Name = "${var.Vpc_Name}_VPC" }
 }
 
-# Internet Gateway
-
-resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.main.id
-  tags = { Name = "${var.Vpc_Name}_IGW"}
-}
-
 resource "aws_subnet" "Public_Subnets" {
   for_each = var.Public_Subnets
 
@@ -31,20 +24,24 @@ resource "aws_subnet" "Private_Subnets" {
   tags = { Name = "${var.Vpc_Name}_${each.key}" }
 }
 
-# Route_Tables
+# Internet Gateway
 
-resource "aws_route_table" "Pub_RT" {
+resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
-  route {
-    cidr_block=var.Internet
-    gateway_id= aws_internet_gateway.igw.id
-  }
-  tags = { Name= "${var.Vpc_Name}_Pub_RT"}
+  tags = { Name = "${var.Vpc_Name}_IGW"}
 }
 
-resource "aws_route_table_association" "RT_Pubsub_assoc" {
+# NAT Gateway
 
-  for_each = aws_subnet.Public_Subnets  #taking public subnets
-  route_table_id = aws_route_table.Pub_RT.id
-  subnet_id = each.value.id
+resource "aws_eip" "NAT_eip" {
+  domain = "vpc"
+  tags = {Name = "${var.Vpc_Name}_EIP"}
+}
+
+resource "aws_nat_gateway" "NAT" {
+  allocation_id = aws_eip.NAT_eip.id
+  subnet_id = values(aws_subnet.Public_Subnets)[0].id
+
+  tags = { Name= "${var.Vpc_Name}_Nat_GW" }
+  depends_on = [ aws_internet_gateway.igw ]
 }
