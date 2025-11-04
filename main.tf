@@ -14,3 +14,8 @@ Private_Subnets = {
   pvtsub2 = {cidr = var.Pvtsub02_cidr,az=var.availability_zones["AZ_02"]}
 }
 }
+
+module "Web_Tier" {
+  source = "./module/Web"
+  vpc_id = module.VPC_Module.vpc_id
+}
