@@ -18,4 +18,15 @@ Private_Subnets = {
 module "Web_Tier" {
   source = "./module/Web"
   vpc_id = module.VPC_Module.vpc_id
+  
+  public_subnet1_id = module.VPC_Module.Pubsub01_id
+  public_subnet2_id = module.VPC_Module.Pubsub02_id
+
+  AZ1 = var.availability_zones["AZ_01"]
+  AZ2 = var.availability_zones["AZ_02"]
+  AZ3 = var.availability_zones["AZ_03"]
+
+  AMI = var.ami
+  LT_name = "Web_LT"
+  instance_type = "t3.micro"
 }

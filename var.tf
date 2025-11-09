@@ -44,3 +44,8 @@ variable "availability_zones" {
     AZ_03 = "us-east-1c"
   }
 }
+
+variable "ami" {
+  type = string
+  default = "ami-0ecb62995f68bb549"
+}
