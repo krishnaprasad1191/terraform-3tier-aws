@@ -34,21 +34,3 @@ resource "aws_security_group" "Web_SG" {
   tags = {Name = "Web_SG"}
 }
 
-# APP Tier Security Group
-
-resource "aws_security_group" "App_SG" {
-  
-  vpc_id = var.vpc_id
-  description = "Allow Traffic from Web Tier Security Group"
-
-  ingress{
-    from_port = 22
-    to_port = 22
-    protocol = "tcp"
-    security_groups = [ aws_security_group.Web_SG.id ]
-  }
-
-  tags = {
-    Name = "APP_SG"
-  }
-}

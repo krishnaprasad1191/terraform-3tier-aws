@@ -5,7 +5,12 @@ data "aws_key_pair" "Keypair" {
 data "aws_ami" "Ubuntu_AMI" {
   owners = ["099720109477"]  # Canonical (Ubuntu official account)
   most_recent = true
-  name_regex = "^ubuntu/images/hvm-ssd/ubuntu-noble-24.04-amd64-server-.*"
+  #name_regex = "^ubuntu/images/hvm-ssd/ubuntu-noble-24.04-amd64-server-.*"
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
+  }
 
   filter {
     name   = "virtualization-type"
