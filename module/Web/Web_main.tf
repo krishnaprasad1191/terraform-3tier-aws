@@ -11,19 +11,6 @@ resource "aws_lb_target_group" "Pubvm_TG" {
   }
 
 }
-
-# resource "aws_lb_target_group_attachment" "pubvm1_attach_TG" {
-#   target_group_arn = aws_lb_target_group.Pubvm_TG.arn
-#   target_id = aws_instance.Public_instance_1.id
-#   port = 80
-# }
-
-# resource "aws_lb_target_group_attachment" "pubvm2_attach_TG" {
-#   target_group_arn = aws_lb_target_group.Pubvm_TG.arn
-#   target_id = aws_instance.Public_instance_2.id
-#   port = 80
-# }
-
 ######################################################################################################
 #Load Balancer
 resource "aws_lb" "Web_Tier_LB" {
@@ -31,8 +18,6 @@ resource "aws_lb" "Web_Tier_LB" {
   load_balancer_type = "application"
   security_groups = [aws_security_group.Web_SG.id]
   subnets = [var.public_subnet1_id,var.public_subnet2_id]
-
-  
 }
 #Adding Http listner and attaching TG
 resource "aws_lb_listener" "Web_http_listner" {
@@ -87,8 +72,8 @@ resource "aws_launch_template" "Web_LT" {
 resource "aws_autoscaling_group" "Web_ASG" {
   name = "Web_ASG"
   min_size = 1
-  max_size = 3
-  desired_capacity = 2
+  max_size = 2
+  desired_capacity = 1
   vpc_zone_identifier = [var.public_subnet1_id,var.public_subnet2_id]
   target_group_arns = [aws_lb_target_group.Pubvm_TG.arn]
   health_check_type =  "ELB"

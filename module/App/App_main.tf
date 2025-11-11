@@ -97,9 +97,9 @@ resource "aws_launch_template" "App_Tier_LT" {
 }
 resource "aws_autoscaling_group" "App_Tier_ASG" {
   name = "App_ASG"
-  desired_capacity = 2
+  desired_capacity = 1
   min_size = 1
-  max_size = 3
+  max_size = 2
   vpc_zone_identifier = [ var.private_subnet1_id, var.private_subnet2_id ]
   target_group_arns = [ aws_lb_target_group.Pvt_vm_TG.arn ]
   health_check_grace_period = 300
@@ -114,6 +114,10 @@ resource "aws_autoscaling_group" "App_Tier_ASG" {
     key                 = "Name"
     value               = "App-ASG-Instance"
     propagate_at_launch = true
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 
   depends_on = [

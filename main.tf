@@ -49,7 +49,7 @@ module "App_Tier" {
   AMI = module.Web_Tier.ami_id
   key_name = module.Web_Tier.Keypair_name
   LT_name = "APP_Tier_LT"
-  instance_type = "t3.micro"
+  instance_type = "c7i-flex.large"
   depends_on = [ module.Web_Tier ]
 }
 

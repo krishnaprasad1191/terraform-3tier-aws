@@ -43,3 +43,4 @@ resource "aws_db_instance" "MySQL-DB" {
 
     depends_on = [ aws_db_subnet_group.db_subnet_grp ]
 }
+
