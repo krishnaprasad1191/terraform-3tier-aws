@@ -33,7 +33,7 @@ jobs:
         run:  terraform validate
 
       - name: "Planning the infra"
-        run: terraform plan
+        run: terraform plan -lock=false
 
       - name: "Terraform apply"
-        run:  terraform apply --auto-approve
+        run:  terraform apply --auto-approve lock=false
