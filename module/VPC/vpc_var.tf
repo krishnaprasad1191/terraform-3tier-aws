@@ -21,3 +21,8 @@ variable "Private_Subnets" {
     az = string 
   }))
 }
+
+variable "Internet" {
+  type = string
+  default = "0.0.0.0/0"
+}
