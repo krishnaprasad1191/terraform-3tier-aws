@@ -26,8 +26,8 @@ jobs:
           aws-region: ${{secrets.AWS_REGION}}
 
       # # Terraform actions
-      # - name : "Terraform Initializaton"
-      #   run: terraform init
+      - name : "Terraform Initializaton"
+        run: terraform init
 
       # - name: "Terraform validate"
       #   run:  terraform validate
