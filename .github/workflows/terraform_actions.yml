@@ -25,15 +25,18 @@ jobs:
           aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws-region: ${{secrets.AWS_REGION}}
 
-      # Terraform actions
-      - name : "Terraform Initializaton"
-        run: terraform init
+      # # Terraform actions
+      # - name : "Terraform Initializaton"
+      #   run: terraform init
 
-      - name: "Terraform validate"
-        run:  terraform validate
+      # - name: "Terraform validate"
+      #   run:  terraform validate
 
-      - name: "Planning the infra"
-        run: terraform plan -lock=false
+      # - name: "Planning the infra"
+      #   run: terraform plan -lock=false
 
-      - name: "Terraform apply"
-        run:  terraform apply --auto-approve -lock=false
+      # - name: "Terraform apply"
+      #   run:  terraform apply --auto-approve -lock=false
+
+      - name: "Terraform destroy"
+        run:  terraform destroy --auto-approve -lock=false
